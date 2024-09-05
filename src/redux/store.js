@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import lanesReducer from './slices/lanesSlice';
-import rulesReducer from './slices/rulesSlice';
-
+import lanesReducer from './features/lanesSlice';
+ 
 const store = configureStore({
   reducer: {
     lanes: lanesReducer,
-    rules: rulesReducer,
   },
 });
 
