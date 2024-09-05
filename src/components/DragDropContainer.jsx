@@ -23,6 +23,13 @@ import {
 import { FaPlus } from 'react-icons/fa';
 import MoveBlockModal from './MoveBlockModal';
 import Lane from './Lane';
+import {
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    AccordionIcon,
+  } from '@chakra-ui/react'
 
 const DragDropContainer = () => {
   const [lanes, setLanes] = useState([
@@ -135,8 +142,98 @@ const DragDropContainer = () => {
               ))}
             </Flex>
 
+             {/* Manage Rules Section */}
+             <Box bg="purple.300" borderRadius="lg" boxShadow="lg" p={6} mt={6} w="100%">
+      <Accordion allowToggle>
+        {/* Accordion Header */}
+        <AccordionItem border="none">
+          {({ isExpanded }) => (
+            <>
+              <AccordionButton
+                _expanded={{ bg: 'purple.200', color: 'white' }}
+                p={4}
+                borderRadius="lg"
+                mb={4}
+              >
+                <Box flex="1" textAlign="left">
+                  <Heading size="lg">Manage Block Movement Rules<Text as={'span'} fontSize={'lg'} p={'0 10px'}>(click to expand)</Text></Heading>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel pb={4}>
+                <Stack direction={isMobile ? 'column' : 'row'} spacing={6}>
+                  <FormControl id="from-lane">
+                    <FormLabel>From Lane</FormLabel>
+                    <Select
+                      name="from"
+                      value={newRule.from}
+                      onChange={handleRuleChange}
+                    >
+                      <option value="">Select Lane</option>
+                      {lanes.map((lane, index) => (
+                        <option key={index + 1} value={index + 1}>
+                          {lane.name}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl id="to-lane">
+                    <FormLabel>To Lane</FormLabel>
+                    <Select
+                      name="to"
+                      value={newRule.to}
+                      onChange={handleRuleChange}
+                    >
+                      <option value="">Select Lane</option>
+                      {lanes.map((lane, index) => (
+                        <option key={index + 1} value={index + 1}>
+                          {lane.name}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl id="action">
+                    <FormLabel>Action</FormLabel>
+                    <Select
+                      name="action"
+                      value={newRule.action}
+                      onChange={handleRuleChange}
+                    >
+                      <option value="allow">Allow</option>
+                      <option value="deny">Deny</option>
+                    </Select>
+                  </FormControl>
+                  <IconButton
+                    icon={<FaPlus />}
+                    colorScheme="teal"
+                    onClick={addRule}
+                    aria-label="Add Rule"
+                  />
+                </Stack>
+
+                {/* Display Rules */}
+                <Divider my={4} />
+                <Heading size="md" mb={2}>
+                  Active Rules
+                </Heading>
+                {rules.length === 0 ? (
+                  <Text>No rules defined yet</Text>
+                ) : (
+                  rules.map((rule, index) => (
+                    <Text key={index}>
+                      From Lane {rule.from} to Lane {rule.to}: {rule.action}
+                    </Text>
+                  ))
+                )}
+              </AccordionPanel>
+            </>
+          )}
+        </AccordionItem>
+      </Accordion>
+    </Box>
+
             {/* Add Block Section */}
-            <Box bg="purple.400" textColor={'white'} color={'white'} borderRadius="lg" boxShadow="lg" p={6} w="100%">
+            <Box bg="purple.300" textColor={'white'} color={'white'} borderRadius="lg" boxShadow="lg" p={6} w="100%">
               <Stack direction={isMobile ? 'column' : 'row'} spacing={6} align="center">
                 <FormControl id="block-name">
                   <FormLabel>Block Name</FormLabel>
@@ -170,78 +267,7 @@ const DragDropContainer = () => {
               </Stack>
             </Box>
 
-            {/* Manage Rules Section */}
-            <Box bg="purple.400" borderRadius="lg" boxShadow="lg" p={6} mt={6} w="100%">
-              <Heading size="lg" mb={4}>
-                Manage Block Movement Rules
-              </Heading>
-              <Stack direction={isMobile ? 'column' : 'row'} spacing={6}>
-                <FormControl id="from-lane">
-                  <FormLabel>From Lane</FormLabel>
-                  <Select
-                    name="from"
-                    value={newRule.from}
-                    onChange={handleRuleChange}
-                  >
-                    <option value="">Select Lane</option>
-                    {lanes.map((lane, index) => (
-                      <option key={index + 1} value={index + 1}>
-                        {lane.name}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl id="to-lane">
-                  <FormLabel>To Lane</FormLabel>
-                  <Select
-                    name="to"
-                    value={newRule.to}
-                    onChange={handleRuleChange}
-                  >
-                    <option value="">Select Lane</option>
-                    {lanes.map((lane, index) => (
-                      <option key={index + 1} value={index + 1}>
-                        {lane.name}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl id="action">
-                  <FormLabel>Action</FormLabel>
-                  <Select
-                    name="action"
-                    value={newRule.action}
-                    onChange={handleRuleChange}
-                  >
-                    <option value="allow">Allow</option>
-                    <option value="deny">Deny</option>
-                  </Select>
-                </FormControl>
-
-                <IconButton
-                  icon={<FaPlus />}
-                  colorScheme="teal"
-                  onClick={addRule}
-                  aria-label="Add Rule"
-                />
-                
-              </Stack>
-
-              {/* Display Rules */}
-              <Divider my={4} />
-              <Heading size="md" mb={2}>
-                Active Rules
-              </Heading>
-              {rules.length === 0 ? (
-                <Text>No rules defined yet</Text>
-              ) : (
-                rules.map((rule, index) => (
-                  <Text key={index}>
-                    From Lane {rule.from} to Lane {rule.to}: {rule.action}
-                  </Text>
-                ))
-              )}
-            </Box>
+           
           </Flex>
         </Container>
 
