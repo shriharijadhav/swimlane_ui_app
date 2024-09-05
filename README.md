@@ -15,6 +15,7 @@ The Swimlane Drag and Drop App is a web-based application that allows users to o
 ## Technologies
 
 - **React**: JavaScript library for building user interfaces.
+- **Redux toolkit**: For managing complex state of application
 - **Chakra UI**: Component library for building accessible and responsive UIs.
 - **react-dnd**: Library for drag-and-drop functionality.
 - **react-dnd-html5-backend**: HTML5 backend for desktop drag-and-drop.
@@ -31,7 +32,7 @@ The Swimlane Drag and Drop App is a web-based application that allows users to o
 1. **Clone the repository**
 
     ```bash
-    git clone https://github.com/your-username/swimlane-app.git
+    git clone https://github.com/shriharijadhav/swimlane_ui_app.git
     cd swimlane-app
     ```
 
@@ -44,10 +45,10 @@ The Swimlane Drag and Drop App is a web-based application that allows users to o
 3. **Start the development server**
 
     ```bash
-    npm start
+    npm run dev
     ```
 
-    The app will be available at `http://localhost:3000` in your browser.
+    The app will be available at `Localhost` in your browser.
 
 ## Usage
 
@@ -89,14 +90,9 @@ The Swimlane Drag and Drop App is a web-based application that allows users to o
 
 5. **Create a pull request**
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
 - **Chakra UI** for the beautiful and accessible components.
 - **React DnD** for the drag-and-drop functionality.
-
-For any questions or feedback, feel free to [open an issue](https://github.com/your-username/swimlane-app/issues) or [contact me](mailto:your-email@example.com).
 
