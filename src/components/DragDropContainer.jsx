@@ -140,7 +140,7 @@ const DragDropContainer = () => {
               <Stack direction={isMobile ? 'column' : 'row'} spacing={6} align="center">
                 <FormControl id="block-name">
                   <FormLabel>Block Name</FormLabel>
-                  <Input border={'1px solid black'}
+                  <Input 
                     value={blockName}
                     color={'black'}
                     onChange={(e) => setBlockName(e.target.value)}
