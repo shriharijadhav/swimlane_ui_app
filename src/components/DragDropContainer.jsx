@@ -29,7 +29,7 @@ import { FaPlus } from 'react-icons/fa';
 import MoveBlockModal from './MoveBlockModal';
 import Lane from './Lane';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBlock, moveBlock, deleteBlock, addRule } from '../redux/features/lanesSlice'; // Adjust import path as needed
+import { addBlock, moveBlock, deleteBlock, addRule } from '../redux/features/lanesSlice'; 
 
 const DragDropContainer = () => {
   const dispatch = useDispatch();
@@ -145,7 +145,7 @@ const DragDropContainer = () => {
                         <AccordionIcon />
                       </AccordionButton>
                       <AccordionPanel pb={4}>
-                        <Stack direction={isMobile ? 'column' : 'row'} spacing={6}>
+                        <Stack direction={isMobile ? 'column' : 'row'} justifyContent={'center'} alignItems={'center'} spacing={6}>
                           <FormControl id="from-lane">
                             <FormLabel>From Lane</FormLabel>
                             <Select
@@ -187,12 +187,14 @@ const DragDropContainer = () => {
                               <option value="deny">Deny</option>
                             </Select>
                           </FormControl>
-                          <IconButton
-                            icon={<FaPlus />}
-                            colorScheme="teal"
-                            onClick={addRuleHandler}
-                            aria-label="Add Rule"
-                          />
+                          <Button p={'10px 30px'} colorScheme="teal"
+                          onClick={addRuleHandler}
+                          aria-label="Add Rule"
+
+                          >
+                          Add Rule
+                        </Button>
+                          
                         </Stack>
 
                         {/* Display Rules */}
@@ -218,7 +220,7 @@ const DragDropContainer = () => {
 
             {/* Add Block Section */}
             <Box bg="purple.300" textColor={'white'} color={'white'} borderRadius="lg" boxShadow="lg" p={6} w="100%">
-              <Stack direction={isMobile ? 'column' : 'row'} spacing={6} align="center">
+              <Stack direction={isMobile ? 'column' : 'row'} justifyContent={'center'} alignItems={'center'} spacing={6} align="center">
                 <FormControl id="block-name">
                   <FormLabel>Block Name</FormLabel>
                   <Input 
@@ -242,7 +244,7 @@ const DragDropContainer = () => {
                     ))}
                   </Select>
                 </FormControl>
-                <Button colorScheme="teal" onClick={handleAddBlock}>
+                <Button p={'10px 30px'} colorScheme="teal" onClick={handleAddBlock}>
                   Add Block
                 </Button>
               </Stack>
