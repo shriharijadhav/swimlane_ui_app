@@ -29,7 +29,8 @@ import { FaPlus } from 'react-icons/fa';
 import MoveBlockModal from './MoveBlockModal';
 import Lane from './Lane';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBlock, moveBlock, deleteBlock, addRule } from '../redux/features/lanesSlice'; 
+import { addBlock, moveBlock, deleteBlock, addRule, deleteRule } from '../redux/features/lanesSlice'; 
+import { DeleteIcon } from '@chakra-ui/icons';
 
 const DragDropContainer = () => {
   const dispatch = useDispatch();
@@ -206,9 +207,12 @@ const DragDropContainer = () => {
                           <Text>No rules defined yet</Text>
                         ) : (
                           rules.map((rule, index) => (
-                            <Text key={index}>
+                            <Box display={'flex'} gap={'2'} justifyContent={'center'} alignItems={'center'} w={'max-content'}>
+                              <Text key={index}>
                               From Lane {rule.from} to Lane {rule.to}: {rule.action}
                             </Text>
+                            <IconButton onClick={()=>{dispatch(deleteRule(index))}} title='Delete Rule' colorScheme='red' icon={<DeleteIcon/>}/>
+                            </Box>
                           ))
                         )}
                       </AccordionPanel>

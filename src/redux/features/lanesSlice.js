@@ -81,6 +81,9 @@ const lanesSlice = createSlice({
     addRule: (state, action) => {
       state.rules.push(action.payload);
     },
+    deleteRule:(state,action)=>{
+      state.rules.splice(action.payload, 1);
+    },
     editMyBlockName: (state, action) => {
       const { index, laneIndex, newName } = action.payload;
       const tempName = state.lanes[laneIndex].items[index].divName;
@@ -105,6 +108,6 @@ const persistStateMiddleware = (storeAPI) => (next) => (action) => {
   return result;
 };
 
-export const { addBlock, moveBlock, deleteBlock, editMyBlockName, addRule } = lanesSlice.actions;
+export const { addBlock, moveBlock, deleteBlock, editMyBlockName, addRule,deleteRule } = lanesSlice.actions;
 export default lanesSlice.reducer;
 export { persistStateMiddleware };
