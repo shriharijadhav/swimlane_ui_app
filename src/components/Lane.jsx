@@ -8,7 +8,11 @@ const Lane = ({ lane, laneIndex, moveBlock, deleteBlock }) => {
     accept: 'BLOCK',
     drop: (item) => {
       if (item.laneIndex !== laneIndex) {
-        moveBlock(item.index, item.laneIndex, laneIndex);
+        moveBlock(item.index, item.laneIndex, laneIndex, null);
+      } else {
+        // Move within the same lane
+        const targetBlockIndex = lane.items.findIndex((_, index) => index !== item.index);
+        moveBlock(item.index, item.laneIndex, laneIndex, targetBlockIndex);
       }
     },
   });

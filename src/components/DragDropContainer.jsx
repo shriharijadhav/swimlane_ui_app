@@ -64,7 +64,7 @@ const DragDropContainer = () => {
     }
   };
 
-  const moveBlockHandler = (blockIndex, sourceLaneIndex, targetLaneIndex) => {
+  const moveBlockHandler = (blockIndex, sourceLaneIndex, targetLaneIndex, targetBlockIndex) => {
     const sourceLaneIndexStr = (sourceLaneIndex + 1).toString();
     const targetLaneIndexStr = (targetLaneIndex + 1).toString();
 
@@ -83,20 +83,20 @@ const DragDropContainer = () => {
       return;
     }
 
-    dispatch(moveBlock({ blockIndex, sourceLaneIndex, targetLaneIndex }));
+    dispatch(moveBlock({ blockIndex, sourceLaneIndex, targetLaneIndex, targetBlockIndex }));
   };
 
   const deleteBlockHandler = (blockIndex, laneIndex) => {
     dispatch(deleteBlock({ blockIndex, laneIndex }));
   };
 
-  const onOpenModal = (blockIndex, sourceLaneIndex) => {
-    setMoveBlockData({ blockIndex, sourceLaneIndex });
+  const onOpenModal = (blockIndex, sourceLaneIndex, targetBlockIndex) => {
+    setMoveBlockData({ blockIndex, sourceLaneIndex, targetBlockIndex });
     setIsModalOpen(true);
   };
 
-  const onMoveBlock = (blockIndex, sourceLaneIndex, targetLaneIndex) => {
-    moveBlockHandler(blockIndex, sourceLaneIndex, targetLaneIndex);
+  const onMoveBlock = (blockIndex, sourceLaneIndex, targetLaneIndex, targetBlockIndex) => {
+    moveBlockHandler(blockIndex, sourceLaneIndex, targetLaneIndex, targetBlockIndex);
     setMoveBlockData(null);
   };
 
@@ -188,14 +188,9 @@ const DragDropContainer = () => {
                               <option value="deny">Deny</option>
                             </Select>
                           </FormControl>
-                          <Button p={'10px 30px'} colorScheme="teal"
-                          onClick={addRuleHandler}
-                          aria-label="Add Rule"
-
-                          >
-                          Add Rule
-                        </Button>
-                          
+                          <Button p={'10px 30px'} colorScheme="teal" onClick={addRuleHandler} aria-label="Add Rule">
+                            Add Rule
+                          </Button>
                         </Stack>
 
                         {/* Display Rules */}
@@ -207,11 +202,11 @@ const DragDropContainer = () => {
                           <Text>No rules defined yet</Text>
                         ) : (
                           rules.map((rule, index) => (
-                            <Box display={'flex'} gap={'2'} justifyContent={'center'} alignItems={'center'} w={'max-content'}>
-                              <Text key={index}>
-                              From Lane {rule.from} to Lane {rule.to}: {rule.action}
-                            </Text>
-                            <IconButton onClick={()=>{dispatch(deleteRule(index))}} title='Delete Rule' colorScheme='red' icon={<DeleteIcon/>}/>
+                            <Box display={'flex'} gap={'2'} justifyContent={'center'} alignItems={'center'} w={'max-content'} key={index}>
+                              <Text>
+                                From Lane {rule.from} to Lane {rule.to}: {rule.action}
+                              </Text>
+                              <IconButton onClick={() => dispatch(deleteRule(index))} title='Delete Rule' colorScheme='red' icon={<DeleteIcon />} />
                             </Box>
                           ))
                         )}
@@ -261,6 +256,7 @@ const DragDropContainer = () => {
             onClose={() => setIsModalOpen(false)}
             blockIndex={moveBlockData?.blockIndex}
             sourceLaneIndex={moveBlockData?.sourceLaneIndex}
+            targetBlockIndex={moveBlockData?.targetBlockIndex}
             onMoveBlock={onMoveBlock}
             lanes={lanes}
           />

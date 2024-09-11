@@ -51,26 +51,36 @@ const lanesSlice = createSlice({
         history: [],
       });
     },
-    moveBlock: (state, action) => {
-      const { blockIndex, sourceLaneIndex, targetLaneIndex } = action.payload;
-
+    moveBlock(state, action) {
+      const { blockIndex, sourceLaneIndex, targetLaneIndex, targetBlockIndex } = action.payload;
+    
       // Ensure indices are valid
       if (state.lanes[sourceLaneIndex] && state.lanes[targetLaneIndex]) {
-        // Remove block from source lane
-        const [movedItem] = state.lanes[sourceLaneIndex].items.splice(blockIndex, 1);
-
-        // Add block to target lane
-        if (movedItem) {
-          const now = new Date();
-          const timestamp = now.toISOString(); // ISO format for date and time
-
-          movedItem.history.push({
-            action: 'Movement',
-            detail: `Moved from ${state.lanes[sourceLaneIndex].name} to ${state.lanes[targetLaneIndex].name}`,
-            timestamp,
-          });
-
-          state.lanes[targetLaneIndex].items.push(movedItem);
+        // Handle movement within the same lane
+        if (sourceLaneIndex === targetLaneIndex  ) {
+          // Reorder blocks within the same lane
+          const [movedItem] = state.lanes[sourceLaneIndex].items.splice(blockIndex, 1);
+          state.lanes[sourceLaneIndex].items.splice(targetBlockIndex, 0, movedItem);
+          // Update history for reordering
+          if(state.lanes[targetLaneIndex].items.length>1){    
+            movedItem.history.push({
+              action: 'Movement',
+              detail: `Reordered from position ${blockIndex+1} to position ${targetBlockIndex+1} in ${state.lanes[sourceLaneIndex].name}`,
+              timestamp: new Date().toISOString(),
+            });
+          }
+          
+        } else {
+          // Handle movement between different lanes
+          const [movedItem] = state.lanes[sourceLaneIndex].items.splice(blockIndex, 1);
+          if (movedItem) {
+            movedItem.history.push({
+              action: 'Movement',
+              detail: `Moved from ${state.lanes[sourceLaneIndex].name} to ${state.lanes[targetLaneIndex].name}`,
+              timestamp: new Date().toISOString(),
+            });
+            state.lanes[targetLaneIndex].items.push(movedItem);
+          }
         }
       }
     },
