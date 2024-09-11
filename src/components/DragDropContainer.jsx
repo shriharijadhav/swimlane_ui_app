@@ -150,6 +150,7 @@ const DragDropContainer = () => {
                           <FormControl id="from-lane">
                             <FormLabel>From Lane</FormLabel>
                             <Select
+                            color={'black'}
                               name="from"
                               value={newRule.from}
                               onChange={handleRuleChange}
@@ -165,6 +166,7 @@ const DragDropContainer = () => {
                           <FormControl id="to-lane">
                             <FormLabel>To Lane</FormLabel>
                             <Select
+                            color={'black'}
                               name="to"
                               value={newRule.to}
                               onChange={handleRuleChange}
@@ -232,12 +234,13 @@ const DragDropContainer = () => {
                 <FormControl id="lane-select">
                   <FormLabel>Select Lane</FormLabel>
                   <Select
+                  color={'black'}
                     value={selectedLane}
                     onChange={(e) => setSelectedLane(Number(e.target.value))}
                   >
-                    <option value="">Select Lane</option>
+                    <option value="" color='black'>Select Lane</option>
                     {lanes.map((lane, index) => (
-                      <option key={index} value={index}>
+                      <option color='black' key={index} value={index}>
                         {lane.name}
                       </option>
                     ))}
